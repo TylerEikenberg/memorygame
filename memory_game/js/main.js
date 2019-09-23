@@ -2,6 +2,16 @@
 JS Code for the Memory Game
 Created by Tyler Eikenberg
 */
+
+function createBoard() {
+	for (var i = 0; i < cards.length; i++) {
+		var cardElement = document.createElement('img');
+		cardElement.setAttribute('src', 'images/back.png');
+		cardElement.setAttribute('data-id', i);
+		cardElement.addEventListener('click', flipCard);
+		document.getElementById('game-board').appendChild(cardElement);
+	}
+}
 var cards = [
 {
 rank: "queen",
@@ -39,17 +49,21 @@ alert("Sorry, try again!")
 * @param  {[type]}
 * @return {[type]}
 */
-function flipCard(cardID){
-console.log("User flipped " + cards[cardID].rank + ".");
-cardsInPlay.push(cards[cardID].rank);
+function flipCard(){
+var cardId = this.getAttribute('data-id');
+console.log(cards, cardId);
+cardsInPlay.push(cards[cardId].rank);
+this.setAttribute('src',cards[cardId].cardImage);
 if(cardsInPlay.length === 2){
 checkForMatch();
 }
 }
-flipCard(0);
+
 console.log(cards[0].cardImage);
 console.log(cards[0].suit);
 
-flipCard(2);
+
 console.log(cards[2].cardImage);
 console.log(cards[2].suit);
+
+createBoard();
